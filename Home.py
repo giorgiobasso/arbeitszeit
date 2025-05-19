@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 # Aktuelle Minuszeit definieren
 st.title("Arbeitszeit Tracking Tool")
-minuszeit = st.number_input("Aktuelle Minuszeit (in Minuten):", value=556)
+minuszeit = st.number_input("Aktuelle Minuszeit (in Minuten):", value=0)
 
 # Soll-Arbeitszeit festlegen (nicht bearbeitbar) sd
 soll_arbeitszeit = datetime.strptime("08:24", "%H:%M").time()
@@ -12,7 +12,7 @@ st.markdown(f"**Tägliche Soll-Arbeitszeit:** {soll_arbeitszeit.hour:02d}:{soll_
 # Zeit und Pause-Eingaben
 startzeit = st.time_input("Startzeit:")
 endzeit = st.time_input("Endzeit:")
-pause = st.number_input("Mittagspause (in Minuten):", value=60)
+pause = st.number_input("Mittagspause (in Minuten):", value=30)
 
 if st.button("Berechnen"):
     # Berechnung der tatsächlichen Arbeitszeit
@@ -24,7 +24,7 @@ if st.button("Berechnen"):
 
     # Wöchentliches Plus/Minus berechnen
     wochen_plus_minus = tages_plus_minus * 4
-    verbleibende_minuszeit = minuszeit - wochen_plus_minus
+    verbleibende_minuszeit = minuszeit - tages_plus_minus
 
     # Ergebnisanzeige
     st.write(f"Tatsächliche Arbeitszeit: {arbeitszeit // 60:.0f} Stunden und {arbeitszeit % 60:.0f} Minuten")
